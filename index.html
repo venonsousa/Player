@@ -7,8 +7,9 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('https://culturainglesamg.com.br/wp-content/uploads/2023/08/blog.png') no-repeat center center fixed;
+      background: url('fundo.jpg') no-repeat center center fixed;
       background-size: cover;
+      transition: background 2s ease; /* transição suave */
     }
 
     .player {
@@ -24,7 +25,7 @@
     .artist-photo {
       width: 300px;
       height: 300px;
-      border-radius: 50%;
+      border-radius: 20px; /* quadrada com cantos arredondados */
       transition: transform 0.5s ease;
     }
 
@@ -37,78 +38,64 @@
       font-size: 18px;
     }
 
-    .upload-btn {
+    .power-btn {
       margin: 10px 0;
       padding: 10px 20px;
-      background: #3498db;
+      background: #e74c3c;
       border: none;
       border-radius: 8px;
       color: #fff;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+    .power-btn.on {
+      background: #2ecc71;
     }
 
-    .social-icons a {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Efeito água nas bordas */
-    .social-icons a::before {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(0,150,255,0.5) 20%, transparent 70%);
-      animation: wave 3s infinite linear;
-    }
-
-    @keyframes wave {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .datetime {
+      margin-top: 15px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <div class="player">
-    <img src="https://culturainglesamg.com.br/wp-content/uploads/2023/08/blog.png" alt="Foto do Artista" class="artist-photo">
+    <img src="artista.jpg" alt="Foto do Artista" class="artist-photo">
     <div class="listeners">👥 1.234 ouvintes</div>
 
-    <input type="file" id="imageUpload" style="display:none" />
-    <button class="upload-btn" onclick="document.getElementById('imageUpload').click()">Gerar Link da Imagem</button>
-    <p id="imageLink"></p>
+    <button class="power-btn" id="powerBtn">Ligar</button>
 
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank">F</a>
-      <a href="https://instagram.com" target="_blank">I</a>
-      <a href="https://tiktok.com" target="_blank">T</a>
-    </div>
+    <div class="datetime" id="datetime"></div>
   </div>
 
   <script>
-    const input = document.getElementById('imageUpload');
-    const linkDisplay = document.getElementById('imageLink');
+    // Botão ligar/desligar
+    const powerBtn = document.getElementById('powerBtn');
+    let ligado = false;
 
-    input.addEventListener('change', () => {
-      const file = input.files[0];
-      if(file){
-        const url = URL.createObjectURL(file);
-        linkDisplay.textContent = "Link gerado: " + url;
+    powerBtn.addEventListener('click', () => {
+      ligado = !ligado;
+      if(ligado){
+        powerBtn.textContent = "Desligar";
+        powerBtn.classList.add("on");
+      } else {
+        powerBtn.textContent = "Ligar";
+        powerBtn.classList.remove("on");
       }
     });
+
+    // Hora e data em tempo real
+    function atualizarDataHora(){
+      const agora = new Date();
+      const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const data = agora.toLocaleDateString('pt-BR', opcoes);
+      const hora = agora.toLocaleTimeString('pt-BR');
+      document.getElementById('datetime').textContent = data + " - " + hora;
+    }
+
+    setInterval(atualizarDataHora, 1000);
+    atualizarDataHora();
   </script>
 </body>
 </html>
