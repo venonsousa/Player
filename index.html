@@ -2,195 +2,260 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Player Rádio Personalizado</title>
+  <title>Minha Rádio Online</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: Arial, sans-serif;
-      background: url('fundo.jpg') no-repeat center center fixed;
-      background-size: cover;
-      transition: background 2s ease;
+      background: #121212;
+      overflow: hidden;
+    }
+
+    /* Fundo animado com bolhas */
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(0, 200, 83, 0.4);
+      border-radius: 50%;
+      animation: rise 20s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
 
     .player {
-      width: 420px;
-      margin: 50px auto;
+      background: rgba(0,0,0,0.7);
       padding: 20px;
-      background: rgba(0,0,0,0.6);
-      border-radius: 15px;
-      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       text-align: center;
+      width: 420px;
+      transition: all 0.4s ease;
+      border: 2px solid transparent;
+      animation: borderPulse 4s infinite;
+    }
+
+    @keyframes borderPulse {
+      0% { border-color: #00c853; }
+      50% { border-color: #009624; }
+      100% { border-color: #00c853; }
+    }
+
+    .player h2 {
+      color: #fff;
+      margin-bottom: 10px;
     }
 
     .artist-photo {
       width: 300px;
-      height: 300px;
-      border-radius: 20px;
-      transition: transform 0.5s ease;
+      height: 200px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .artist-photo:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
-    .listeners {
-      margin: 15px 0;
-      font-size: 18px;
-    }
-
-    .datetime {
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
-    /* Quadro estilizado */
-    .song-box {
-      margin-top: 20px;
-      padding: 15px;
-      border: 3px solid transparent;
-      border-radius: 15px;
-      background: linear-gradient(135deg, rgba(0,0,255,0.3), rgba(255,255,255,0.1));
-      font-size: 20px;
-      font-weight: bold;
+    .song-info {
       color: #fff;
-      box-shadow: 0 0 20px rgba(0,150,255,0.8);
-      animation: glow 2s infinite alternate;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
+      margin: 10px 0;
     }
 
-    .song-text {
-      background: linear-gradient(90deg, #fff, #0ff, #fff);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
-    }
-
-    /* Disco de vinil animado */
-    .vinyl {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle at center, #000 60%, #444 100%);
-      border: 3px solid #fff;
-      position: relative;
-      animation: spin 5s linear infinite;
-    }
-
-    .vinyl::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      background: #fff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    /* Controles do player */
     .controls {
-      margin-top: 20px;
       display: flex;
       justify-content: center;
       gap: 15px;
+      margin-bottom: 15px;
     }
 
     .controls button {
-      padding: 10px 15px;
+      background: #00c853;
       border: none;
-      border-radius: 8px;
-      background: #3498db;
       color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
       font-size: 16px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
     .controls button:hover {
-      background: #2980b9;
+      background: #009624;
+      transform: scale(1.05);
     }
 
-    @keyframes glow {
-      from { box-shadow: 0 0 10px rgba(0,150,255,0.5); }
-      to { box-shadow: 0 0 25px rgba(0,255,255,0.9); }
+    .volume {
+      width: 100%;
+      margin-bottom: 15px;
     }
 
-    @keyframes shine {
-      to { background-position: 200% center; }
+    .volume label {
+      color: #fff;
+      display: block;
+      margin-bottom: 5px;
     }
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .volume input[type="range"] {
+      width: 100%;
+      accent-color: #00c853;
+      transition: accent-color 0.3s ease;
+    }
+
+    .volume input[type="range"]:hover {
+      accent-color: #00e676;
+    }
+
+    .stars {
+      margin: 15px 0;
+    }
+
+    .stars span {
+      font-size: 22px;
+      cursor: pointer;
+      color: #555;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .stars span:hover {
+      transform: scale(1.2);
+    }
+
+    .stars span.active {
+      color: gold;
+    }
+
+    .social-icons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #333;
+    }
+
+    .social-icons a img {
+      width: 35px;
+      height: 35px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons a img:hover {
+      transform: scale(1.2);
     }
   </style>
 </head>
 <body>
+  <!-- Fundo animado -->
+  <div class="background">
+    <div class="bubble" style="left:10%; width:40px; height:40px;"></div>
+    <div class="bubble" style="left:30%; width:25px; height:25px;"></div>
+    <div class="bubble" style="left:50%; width:60px; height:60px;"></div>
+    <div class="bubble" style="left:70%; width:35px; height:35px;"></div>
+    <div class="bubble" style="left:85%; width:50px; height:50px;"></div>
+  </div>
+
   <div class="player">
-    <img src="artista.jpg" alt="Foto do Artista" class="artist-photo">
-    <div class="listeners">👥 1.234 ouvintes</div>
+    <h2>Minha Rádio Online</h2>
+    <img src="https://via.placeholder.com/300x200.png?text=Artista" alt="Artista" class="artist-photo">
 
-    <div class="datetime" id="datetime"></div>
-
-    <!-- Quadro estilizado com disco girando -->
-    <div class="song-box">
-      <div class="vinyl"></div>
-      <span class="song-text" id="songBox">Tocando agora: Nome da Música</span>
+    <div class="song-info">
+      <p id="songName">🎵 Tocando agora: Música Exemplo</p>
+      <p id="dateTime"></p>
     </div>
 
-    <!-- Controles do player -->
+    <audio id="radioPlayer">
+      <source src="https://tu-stream-url.com/live.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="controls">
-      <button id="prevBtn">⏮️</button>
-      <button id="playBtn">▶️</button>
-      <button id="pauseBtn">⏸️</button>
-      <button id="stopBtn">⏹️</button>
-      <button id="nextBtn">⏭️</button>
+      <button onclick="playRadio()">▶ Play</button>
+      <button onclick="pauseRadio()">⏸ Pause</button>
+    </div>
+
+    <div class="volume">
+      <label for="vol">Volume</label>
+      <input id="vol" type="range" min="0" max="1" step="0.1" onchange="setVolume(this.value)">
+    </div>
+
+    <div class="stars" id="rating">
+      <span onclick="rateSong(1)">★</span>
+      <span onclick="rateSong(2)">★</span>
+      <span onclick="rateSong(3)">★</span>
+      <span onclick="rateSong(4)">★</span>
+      <span onclick="rateSong(5)">★</span>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+      </a>
+      <a href="https://tiktok.com" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      </a>
     </div>
   </div>
 
   <script>
-    // Hora e data em tempo real
-    function atualizarDataHora(){
-      const agora = new Date();
-      const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const data = agora.toLocaleDateString('pt-BR', opcoes);
-      const hora = agora.toLocaleTimeString('pt-BR');
-      document.getElementById('datetime').textContent = data + " - " + hora;
+    const player = document.getElementById("radioPlayer");
+    const dateTimeEl = document.getElementById("dateTime");
+    const stars = document.querySelectorAll(".stars span");
+
+    function playRadio() {
+      player.play();
     }
 
-    setInterval(atualizarDataHora, 1000);
-    atualizarDataHora();
+    function pauseRadio() {
+      player.pause();
+    }
 
-    // Atualizar nome da música dinamicamente
-    const songBox = document.getElementById('songBox');
-    let musicaAtual = "Minha Música Favorita";
-    songBox.textContent = "Tocando agora: " + musicaAtual;
+    function setVolume(value) {
+      player.volume = value;
+    }
 
-    // Controles do player (simulação)
-    document.getElementById('playBtn').addEventListener('click', () => {
-      songBox.textContent = "Tocando agora: " + musicaAtual;
-    });
+    // Atualizar data e hora em tempo real
+    function updateDateTime() {
+      const now = new Date();
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      const date = now.toLocaleDateString('pt-BR', options);
+      const time = now.toLocaleTimeString('pt-BR');
+      dateTimeEl.textContent = `📅 ${date} 🕒 ${time}`;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
 
-    document.getElementById('pauseBtn').addEventListener('click', () => {
-      songBox.textContent = "⏸️ Música pausada";
-    });
-
-    document.getElementById('stopBtn').addEventListener('click', () => {
-      songBox.textContent = "⏹️ Música parada";
-    });
-
-    document.getElementById('prevBtn').addEventListener('click', () => {
-      songBox.textContent = "⏮️ Música anterior";
-    });
-
-    document.getElementById('nextBtn').addEventListener('click', () => {
-      songBox.textContent = "⏭️ Próxima música";
-    });
+    // Sistema de votação por estrelas
+    function rateSong(rating) {
+      stars.forEach((star, index) => {
+        if (index < rating) {
+          star.classList.add("active");
+        } else {
+          star.classList.remove("active");
+        }
+      });
+      alert(`Você deu ${rating} estrela(s) para esta música!`);
+    }
   </script>
 </body>
 </html>
