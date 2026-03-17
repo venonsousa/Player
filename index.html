@@ -7,9 +7,9 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('fundo.jpg') no-repeat center center fixed;
+      background: url('https://culturainglesamg.com.br/wp-content/uploads/2026/02/BLOG_26-150x150.png') no-repeat center center fixed;
       background-size: cover;
-      transition: background 2s ease; /* transição suave */
+      transition: background 2s ease;
     }
 
     .player {
@@ -25,7 +25,7 @@
     .artist-photo {
       width: 300px;
       height: 300px;
-      border-radius: 20px; /* quadrada com cantos arredondados */
+      border-radius: 20px;
       transition: transform 0.5s ease;
     }
 
@@ -57,6 +57,55 @@
       margin-top: 15px;
       font-size: 16px;
     }
+
+    /* Quadro estilizado */
+    .song-box {
+      margin-top: 20px;
+      padding: 15px;
+      border: 3px solid transparent;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(0,0,255,0.3), rgba(255,255,255,0.1));
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0,150,255,0.8);
+      animation: glow 2s infinite alternate;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Texto com brilho correndo */
+    .song-text {
+      background: linear-gradient(90deg, #fff, #0ff, #fff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 4s linear infinite;
+    }
+
+    /* Nota musical animada */
+    .note {
+      font-size: 28px;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(0,150,255,0.5); }
+      to { box-shadow: 0 0 25px rgba(0,255,255,0.9); }
+    }
+
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -67,6 +116,12 @@
     <button class="power-btn" id="powerBtn">Ligar</button>
 
     <div class="datetime" id="datetime"></div>
+
+    <!-- Quadro estilizado com texto e nota animada -->
+    <div class="song-box">
+      <span class="note">🎵</span>
+      <span class="song-text" id="songBox">Tocando agora: Nome da Música</span>
+    </div>
   </div>
 
   <script>
@@ -96,6 +151,11 @@
 
     setInterval(atualizarDataHora, 1000);
     atualizarDataHora();
+
+    // Atualizar nome da música dinamicamente
+    const songBox = document.getElementById('songBox');
+    let musicaAtual = "Minha Música Favorita";
+    songBox.textContent = "Tocando agora: " + musicaAtual;
   </script>
 </body>
 </html>
