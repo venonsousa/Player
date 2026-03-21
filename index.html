@@ -1,261 +1,306 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Minha Rádio Online</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: #121212;
-      overflow: hidden;
-    }
-
-    /* Fundo animado com bolhas */
-    .background {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .bubble {
-      position: absolute;
-      bottom: -100px;
-      background: rgba(0, 200, 83, 0.4);
-      border-radius: 50%;
-      animation: rise 20s infinite ease-in;
-    }
-
-    @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-    }
-
-    .player {
-      background: rgba(0,0,0,0.7);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      text-align: center;
-      width: 420px;
-      transition: all 0.4s ease;
-      border: 2px solid transparent;
-      animation: borderPulse 4s infinite;
-    }
-
-    @keyframes borderPulse {
-      0% { border-color: #00c853; }
-      50% { border-color: #009624; }
-      100% { border-color: #00c853; }
-    }
-
-    .player h2 {
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .artist-photo {
-      width: 300px;
-      height: 200px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin-bottom: 10px;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .artist-photo:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    .song-info {
-      color: #fff;
-      margin: 10px 0;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    .controls button {
-      background: #00c853;
-      border: none;
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .controls button:hover {
-      background: #009624;
-      transform: scale(1.05);
-    }
-
-    .volume {
-      width: 100%;
-      margin-bottom: 15px;
-    }
-
-    .volume label {
-      color: #fff;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .volume input[type="range"] {
-      width: 100%;
-      accent-color: #00c853;
-      transition: accent-color 0.3s ease;
-    }
-
-    .volume input[type="range"]:hover {
-      accent-color: #00e676;
-    }
-
-    .stars {
-      margin: 15px 0;
-    }
-
-    .stars span {
-      font-size: 22px;
-      cursor: pointer;
-      color: #555;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .stars span:hover {
-      transform: scale(1.2);
-    }
-
-    .stars span.active {
-      color: gold;
-    }
-
-    .social-icons {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding-top: 10px;
-      border-top: 1px solid #333;
-    }
-
-    .social-icons a img {
-      width: 35px;
-      height: 35px;
-      transition: transform 0.3s ease;
-    }
-
-    .social-icons a img:hover {
-      transform: scale(1.2);
-    }
-  </style>
-</head>
-<body>
-  <!-- Fundo animado -->
-  <div class="background">
-    <div class="bubble" style="left:10%; width:40px; height:40px;"></div>
-    <div class="bubble" style="left:30%; width:25px; height:25px;"></div>
-    <div class="bubble" style="left:50%; width:60px; height:60px;"></div>
-    <div class="bubble" style="left:70%; width:35px; height:35px;"></div>
-    <div class="bubble" style="left:85%; width:50px; height:50px;"></div>
-  </div>
-
-  <div class="player">
-    <h2>Minha Rádio Online</h2>
-    <img src="https://culturainglesamg.com.br/wp-content/uploads/2026/02/BLOG_26-150x150.png?text=Artista" alt="Artista" class="artist-photo">
-
-    <div class="song-info">
-      <p id="songName">🎵 Tocando agora: Música Exemplo</p>
-      <p id="dateTime"></p>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      VenOn
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@300;500;700&amp;family=Cinzel:wght@600;800&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+    :root{--bg-main:#000000;--bg-panel:#0f0f0f;--primary:#e0e0e0;--secondary:#a0a0a0;--accent:#ffffff;--text:#ffffff;--muted:#888888;--border:rgba(255,255,255,0.15);--r-card:24px;--orange-flame:#ffffff}
+    *{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-webkit-user-drag:none}
+    body{background-color:var(--bg-main);color:var(--text);font-family:'Montserrat',sans-serif;overflow:hidden;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center}
+    .noise-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAA5OTkAAAAAAAAAAABMTExERERmZmZnPsoQAAAACHRSTlMAMwA3M2YzM3OqTo8AAAAJcEhZcwAAFiUAABYlAUlSJPAAAAA2SURBVDjLY2AYBaNg2AJGJiBpCqSdgLQwkOYC0iJAmgdIywBpBSCtAqTVgLQqENIEQBAKo2AYBQDULBP0k1R62gAAAABJRU5ErkJggg==');opacity:0.04;z-index:999}
+    #intro-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:1000;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease-out;gap:20px}
+    #intro-screen.hidden{opacity:0;pointer-events:none}
+    .intro-cover-container{width:600px;max-width:90vw;height:250px;overflow:hidden;border:2px solid var(--accent);box-shadow:0 0 30px rgba(255,255,255,0.2);border-radius:10px;margin-bottom:-40px;z-index:1;position:relative}
+    .intro-gif{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) grayscale(100%)}
+    .VenOn-title-intro{font-family:'Orbitron',sans-serif;font-size:6vw;text-transform:uppercase;font-weight:900;letter-spacing:10px;z-index:2;margin-top:20px;background-image:linear-gradient(90deg,#ffffff 0%,#888888 25%,#ffffff 50%,#888888 75%,#ffffff 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;filter:drop-shadow(0px 0px 15px rgba(255,255,255,0.4));transition:transform 0.3s}
+    .enter-btn{background:transparent;border:2px solid var(--accent);color:var(--accent);font-family:'Orbitron',sans-serif;font-size:1.5rem;padding:10px 40px;text-transform:uppercase;letter-spacing:5px;cursor:pointer;transition:all 0.3s ease;margin-top:20px;box-shadow:0 0 10px rgba(255,255,255,0.1);position:relative;overflow:hidden;z-index:2}
+    .enter-btn:hover{background:var(--accent);color:#000;box-shadow:0 0 30px rgba(255,255,255,0.6);transform:scale(1.05)}
+    #main-container{position:absolute;width:98vw;height:96vh;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:1fr;gap:4px;opacity:0;transition:opacity 1s}
+    #main-container.active{opacity:1}
+    .char-box{position:relative;background:var(--bg-panel);border:1px solid var(--border);height:100%;width:100%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;opacity:0;transform:translateY(100vh);transition:transform 0.4s ease,border-color 0.4s;cursor:pointer}
+    .char-box.reveal{transform:translateY(0);opacity:1}
+    .char-box:hover{border-color:var(--accent);z-index:100;transform:scaleX(1.15)!important;box-shadow:0 0 30px rgba(255,255,255,0.2)}
+    .char-box img{width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.4;filter:grayscale(100%) contrast(1.1);transition:all 0.5s ease;pointer-events:none}
+    .char-box:hover img{opacity:1;filter:grayscale(0%)}
+    .char-number{position:absolute;top:2vh;font-family:'Orbitron';font-size:1.2rem;color:rgba(255,255,255,0.3);font-weight:900;z-index:5;pointer-events:none;writing-mode:vertical-rl;text-orientation:mixed}
+    #reopen-btn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:15px 40px;background:rgba(0,0,0,0.8);border:2px solid var(--accent);color:var(--accent);font-family:'Orbitron',sans-serif;font-size:1.5rem;text-transform:uppercase;letter-spacing:5px;cursor:pointer;z-index:150;opacity:0;pointer-events:none;transition:all 0.5s ease;box-shadow:0 0 20px rgba(255,255,255,0.3);border-radius:5px}
+    #reopen-btn:hover{background:var(--accent);color:#000;box-shadow:0 0 40px rgba(255,255,255,0.8);transform:translate(-50%,-50%) scale(1.1)}
+    #reopen-btn.active{opacity:1;pointer-events:auto}
+    .profile-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);z-index:200;display:grid;grid-template-columns:1fr;width:95%;max-width:700px;background:rgba(10,10,10,0.95);backdrop-filter:blur(15px);border:1px solid var(--border);box-shadow:0 0 60px rgba(255,255,255,0.1),inset 0 0 20px rgba(255,255,255,0.02);border-radius:var(--r-card);overflow:hidden;transition:all 0.5s ease;opacity:0;pointer-events:none}
+    .profile-card.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+    @media (min-width:768px){.profile-card{grid-template-columns:260px 1fr;min-height:400px}}
+    .card-left{background:rgba(0,0,0,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 15px;border-right:1px solid var(--border);gap:15px;position:relative}
+    .side-title{font-family:'Cinzel',serif;font-size:32px;margin:0;text-transform:uppercase;letter-spacing:3px;background:linear-gradient(90deg,#888,#fff,#888);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite;text-shadow:0 0 20px rgba(255,255,255,0.2);text-align:center;display:none}
+    .side-title.visible{display:block}
+    .avatar-frame{width:150px;height:150px;background:transparent;transition:transform .4s ease;display:flex;align-items:center;justify-content:center}
+    .avatar-frame:hover{transform:scale(1.05) rotate(2deg)}
+    .avatar-frame img{width:100%;height:100%;object-fit:contain;border:none;filter:drop-shadow(0 0 10px rgba(255,255,255,0.3))}
+    .music-player{width:100%;max-width:220px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .player-header{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+    .album-cover-small{width:40px;height:40px;border-radius:4px;object-fit:cover;border:1px solid rgba(255,255,255,0.2)}
+    .track-info-compact{display:flex;flex-direction:column;overflow:hidden}
+    .track-name{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .track-artist{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+    #visualizer{width:100%;height:25px;background:rgba(0,0,0,0.2);border-radius:2px}
+    .player-controls-compact{display:flex;justify-content:center;align-items:center;gap:15px}
+    .ctrl-btn{background:0 0;border:none;color:var(--muted);cursor:pointer;font-size:14px;transition:.2s;padding:0}
+    .ctrl-btn:hover{color:#fff}
+    .play-btn{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#888,#fff);color:#000;display:flex;align-items:center;justify-content:center;font-size:10px;box-shadow:0 0 10px rgba(255,255,255,0.4);transition:transform .2s}
+    .play-btn:hover{transform:scale(1.1)}
+    .progress-container{width:100%;height:3px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;margin-top:5px}
+    .progress-bar{height:100%;width:0;background:#fff;border-radius:4px;transition:width .1s linear}
+    .card-right{padding:20px 15px;display:flex;flex-direction:column;flex:1;position:relative}
+    .close-card-btn{position:absolute;top:15px;right:20px;background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:0.3s;z-index:10}
+    .close-card-btn:hover{color:#fff}
+    .nav-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:20px;background:rgba(255,255,255,0.05);padding:5px;border-radius:99px;align-self:center;border:1px solid var(--border)}
+    .tab-btn{background:0 0;border:none;color:var(--muted);font-family:'Montserrat',sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;padding:8px 16px;border-radius:99px;cursor:pointer;transition:all .3s ease}
+    .tab-btn:hover{color:#fff;background:rgba(255,255,255,0.1)}
+    .tab-btn.active{background:#fff;color:#000;box-shadow:0 0 15px rgba(255,255,255,0.4)}
+    .content-section{display:none;animation:fadeIn .5s ease forwards;width:100%;flex-direction:column}
+    .content-section.active{display:flex}
+    .profile-header{text-align:center;margin-bottom:15px}
+    .profile-name{font-family:'Cinzel',serif;font-size:36px;margin:0;text-transform:uppercase;letter-spacing:4px;background:linear-gradient(90deg,#888,#fff,#888);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite;text-shadow:0 0 20px rgba(255,255,255,0.2)}
+    .quote-box{background:rgba(255,255,255,0.03);padding:15px;border-radius:12px;border-left:2px solid var(--accent);margin:10px 0;position:relative}
+    .quote-box::after{content:'"';position:absolute;top:5px;right:10px;font-size:30px;color:rgba(255,255,255,0.1);font-family:serif}
+    .quote-box p{margin:0;font-style:italic;color:#e0e0e0;font-size:13px;line-height:1.5;text-align:center}
+    .scroll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;max-height:300px;overflow-y:auto;padding-right:5px}
+    .friend-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:8px;display:flex;align-items:center;gap:8px;transition:.2s;text-decoration:none;color:#fff}
+    .friend-card:hover{background:rgba(255,255,255,0.1);border-color:var(--accent)}
+    .f-avatar{width:35px;height:35px;border-radius:50%;background-size:cover;background-color:#333;flex-shrink:0}
+    ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:4px}
+    @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+    @keyframes zoomIn{0%{transform:translate(-50%,-50%) scale(0.9);opacity:0}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:768px){.char-number{display:none}.VenOn-title-intro{font-size:15vw}.intro-cover-container{height:180px;width:95%}.profile-card{display:flex;flex-direction:column;height:80vh;overflow-y:auto}.card-left{padding:20px 15px;border-right:none;border-bottom:1px solid var(--border)}.card-right{padding:20px 15px}}
+    </style>
+    <script>
+    document.addEventListener("contextmenu",e=>e.preventDefault());document.onkeydown=function(e){if(123==e.keyCode||e.ctrlKey&&e.shiftKey&&73==e.keyCode||e.ctrlKey&&e.shiftKey&&74==e.keyCode||e.ctrlKey&&85==e.keyCode||e.ctrlKey&&83==e.keyCode||e.ctrlKey&&67==e.keyCode||e.ctrlKey&&86==e.keyCode||e.ctrlKey&&80==e.keyCode)return!1};document.ondragstart=function(){return!1};document.onselectstart=function(){return!1};
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+    <div id="intro-screen">
+      <div class="intro-cover-container">
+        <img src="https://xatimg.com/image/5HlKvW6Aqp8w.gif" alt="Cover" class="intro-gif">
+      </div>
+      <h1 class="VenOn-title-intro">
+        VenOn
+      </h1><button id="start-btn" class="enter-btn">ENTRAR</button>
     </div>
+    <div id="main-container">
+      <div class="char-box" style="transition-delay: 0s;">
+        <img src="https://xatimg.com/image/a0LxAlEEutro.jpg">
+        <div class="char-number">
+          01
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.05s;">
+        <img src="https://i.pinimg.com/736x/87/ec/e6/87ece60cecaa5ab650434f9dc04fe1b7.jpg" style="object-position: 15% center;">
+        <div class="char-number">
+          02
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.1s;">
+        <img src="https://i.pinimg.com/736x/e0/e8/70/e0e8700f85fe2857cd96f02ca26340ce.jpg">
+        <div class="char-number">
+          03
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.15s;">
+        <img src="https://i.pinimg.com/736x/aa/d3/a7/aad3a7c9139c507dbfc4222f67834bfc.jpg">
+        <div class="char-number">
+          04
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.2s;">
+        <img src="https://i.pinimg.com/1200x/b4/c2/7a/b4c27a9884c2cf1d6b732de0f0ba148c.jpg">
+        <div class="char-number">
+          05
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.25s;">
+        <img src="https://i.pinimg.com/1200x/3e/e4/75/3ee4751a4da1c5c987fdfde094ef1db3.jpg">
+        <div class="char-number">
+          06
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.3s;">
+        <img src="https://i.pinimg.com/736x/05/94/27/05942734a9a85467f135191e13ee75a2.jpg">
+        <div class="char-number">
+          07
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.35s;">
+        <img src="https://i.pinimg.com/736x/70/5b/f7/705bf75b8741371d170d482fe56cf604.jpg" style="object-position: 90% center;">
+        <div class="char-number">
+          08
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.4s;">
+        <img src="https://i.pinimg.com/1200x/66/17/df/6617df4aafd9e2c41d2b7cc30caf565e.jpg">
+        <div class="char-number">
+          09
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.45s;">
+        <img src="https://i.pinimg.com/736x/21/32/1c/219eWJh8J6Mx9DrGXKEv3ojKmqw8Cv9pscK.jpg" style="object-position: 95% center;">
+        <div class="char-number">
+          010
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.5s;">
+        <img src="https://i.pinimg.com/736x/05/a0/de/05a0dee24a60a85932843056eac8d77a.jpg">
+        <div class="char-number">
+          011
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0s;">
+        <img src="https://i.pinimg.com/736x/fe/fe/91/fefe919c9977edf20d2a781cc5ba89d8.jpg">
+        <div class="char-number">
+          01
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.05s;">
+        <img src="https://i.pinimg.com/736x/87/ec/e6/87ece60cecaa5ab650434f9dc04fe1b7.jpg" style="object-position: 15% center;">
+        <div class="char-number">
+          02
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.1s;">
+        <img src="https://i.pinimg.com/736x/e0/e8/70/e0e8700f85fe2857cd96f02ca26340ce.jpg">
+        <div class="char-number">
+          03
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.15s;">
+        <img src="https://i.pinimg.com/736x/aa/d3/a7/aad3a7c9139c507dbfc4222f67834bfc.jpg">
+        <div class="char-number">
+          04
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.2s;">
+        <img src="https://i.pinimg.com/1200x/b4/c2/7a/b4c27a9884c2cf1d6b732de0f0ba148c.jpg">
+        <div class="char-number">
+          05
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.25s;">
+        <img src="https://i.pinimg.com/1200x/3e/e4/75/3ee4751a4da1c5c987fdfde094ef1db3.jpg">
+        <div class="char-number">
+          06
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.3s;">
+        <img src="https://i.pinimg.com/736x/05/94/27/05942734a9a85467f135191e13ee75a2.jpg">
+        <div class="char-number">
+          07
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.35s;">
+        <img src="https://i.pinimg.com/736x/70/5b/f7/705bf75b8741371d170d482fe56cf604.jpg" style="object-position: 90% center;">
+        <div class="char-number">
+          08
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.4s;">
+        <img src="https://i.pinimg.com/1200x/66/17/df/6617df4aafd9e2c41d2b7cc30caf565e.jpg">
+        <div class="char-number">
+          09
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.45s;">
+        <img src="https://i.pinimg.com/736x/21/32/1c/219eWJh8J6Mx9DrGXKEv3ojKmqw8Cv9pscK.jpg" style="object-position: 95% center;">
+        <div class="char-number">
+          010
+        </div>
+      </div>
+      <div class="char-box" style="transition-delay: 0.5s;">
+        <img src="https://i.pinimg.com/736x/05/a0/de/05a0dee24a60a85932843056eac8d77a.jpg">
+        <div class="char-number">
+          011
+        </div>
+      </div>
+    </div><button id="reopen-btn">PERFIL</button>
+    <div class="profile-card" id="profileCard">
+      <aside class="card-left">
+        <h1 class="side-title" id="sideTitle">
+          VenOn
+        </h1>
+        <div class="avatar-frame">
+          <img src="https://xatimg.com/image/GwPG0kxLF7yl.png" alt="Profile">
+        </div>
+        <div class="music-player">
+          <div class="player-header">
+            <img src="https://xatimg.com/image/nvOEJHxLBbnk.png" class="album-cover-small" alt="cover">
+            <div class="track-info-compact">
+              <span class="track-name">Creep</span> <span class="track-artist">Radiohead</span>
+            </div>
+          </div>
+          <canvas id="visualizer" width="200" height="30"></canvas>
+          <div class="player-controls-compact">
+            <button class="ctrl-btn">⏮</button> <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button> <button class="ctrl-btn">⏭</button>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+      </aside>
+      <section class="card-right">
+        <nav class="nav-tabs">
+          <button class="tab-btn active" onclick="switchTab('profile',this)">Perfil</button> <button class="tab-btn" onclick="switchTab('friends',this)">Amigos</button>
+        </nav>
+        <div id="profile" class="content-section active">
+          <div class="profile-header">
+            <h1 class="profile-name">
+              VenOn
+            </h1>
+          </div>
+          <div class="quote-box">
+            <p>
+              "Test"
+            </p>
+          </div>
+        </div>
+        <div id="friends" class="content-section">
+          <div class="scroll-grid">
+            <a class="friend-card" href="https://xat.me/iiCarvaozim" target="_blank">
+            <div class="f-avatar" style="background-image:url('https://xatimg.com/image/GH95R5tDSmQF.jpg')"></div>
+            <div class="f-info">
+              <h4>
+                Teste
+              </h4>
+            </div></a> <a class="friend-card" href="https://xat.me/iiCarvaozim" target="_blank">
+            <div class="f-avatar" style="background-image:url('https://xatimg.com/image/i4JdLYm9EjgH.jpg')"></div>
+            <div class="f-info">
+              <h4>
+                Test2
+              </h4>
+            </div></a>
+          </div>
+        </div>
+      </section>
+    </div><audio id="audio-element" loop="" crossorigin="anonymous"><source src="house.mp3" type="audio/mpeg"></audio> 
+    <script>
 
-    <audio id="radioPlayer">
-      <source src="https://tu-stream-url.com/live.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="controls">
-      <button onclick="playRadio()">▶ Play</button>
-      <button onclick="pauseRadio()">⏸ Pause</button>
-    </div>
-
-    <div class="volume">
-      <label for="vol">Volume</label>
-      <input id="vol" type="range" min="0" max="1" step="0.1" onchange="setVolume(this.value)">
-    </div>
-
-    <div class="stars" id="rating">
-      <span onclick="rateSong(1)">★</span>
-      <span onclick="rateSong(2)">★</span>
-      <span onclick="rateSong(3)">★</span>
-      <span onclick="rateSong(4)">★</span>
-      <span onclick="rateSong(5)">★</span>
-    </div>
-
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
-      </a>
-      <a href="https://tiktok.com" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" alt="TikTok">
-      </a>
-      <a href="https://instagram.com" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-      </a>
-    </div>
-  </div>
-
-  <script>
-    const player = document.getElementById("radioPlayer");
-    const dateTimeEl = document.getElementById("dateTime");
-    const stars = document.querySelectorAll(".stars span");
-
-    function playRadio() {
-      player.play();
-    }
-
-    function pauseRadio() {
-      player.pause();
-    }
-
-    function setVolume(value) {
-      player.volume = value;
-    }
-
-    // Atualizar data e hora em tempo real
-    function updateDateTime() {
-      const now = new Date();
-      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-      const date = now.toLocaleDateString('pt-BR', options);
-      const time = now.toLocaleTimeString('pt-BR');
-      dateTimeEl.textContent = `📅 ${date} 🕒 ${time}`;
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-
-    // Sistema de votação por estrelas
-    function rateSong(rating) {
-      stars.forEach((star, index) => {
-        if (index < rating) {
-          star.classList.add("active");
-        } else {
-          star.classList.remove("active");
-        }
-      });
-      alert(`Você deu ${rating} estrela(s) para esta música!`);
-    }
-  </script>
-</body>
+    const charImages=["https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://i.pinimg.com/736x/87/ec/e6/87ece60cecaa5ab650434f9dc04fe1b7.jpg","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif","https://xatimg.com/image/5HlKvW6Aqp8w.gif"];
+    const container=document.getElementById('main-container'),startBtn=document.getElementById('start-btn'),introScreen=document.getElementById('intro-screen'),profileCard=document.getElementById('profileCard'),reopenBtn=document.getElementById('reopen-btn'),audio=document.getElementById('audio-element'),playBtn=document.getElementById('playBtn'),progressBar=document.getElementById('progressBar'),visualizer=document.getElementById('visualizer');
+    let audioCtx,analyser,source,canvasCtx,dataArray,bufferLength,animationId;
+    for(let i=0;i<11;i++){const d=document.createElement('div');d.classList.add('char-box');d.style.transitionDelay=`${i*0.05}s`;const img=document.createElement('img');img.src=charImages[i%charImages.length];if(i===1)img.style.objectPosition="15% center";if(i===7)img.style.objectPosition="90% center";if(i===9)img.style.objectPosition="95% center";d.appendChild(img);const n=document.createElement('div');n.classList.add('char-number');n.innerText=`0${i+1}`;d.appendChild(n);container.appendChild(d)}
+    const boxes=document.querySelectorAll('.char-box');
+    function initAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext);analyser=audioCtx.createAnalyser();source=audioCtx.createMediaElementSource(audio);source.connect(analyser);analyser.connect(audioCtx.destination);analyser.fftSize=128;bufferLength=analyser.frequencyBinCount;dataArray=new Uint8Array(bufferLength);canvasCtx=visualizer.getContext('2d');drawVisualizer()}catch(e){console.log(e)}}if(audioCtx&&audioCtx.state==='suspended'){audioCtx.resume()}}
+    function drawVisualizer(){animationId=requestAnimationFrame(drawVisualizer);analyser.getByteFrequencyData(dataArray);canvasCtx.clearRect(0,0,visualizer.width,visualizer.height);const barWidth=2;const gap=1;const totalVisualizerWidth=bufferLength*(barWidth+gap);let x=(visualizer.width-totalVisualizerWidth)/2;let barHeight;for(let i=0;i<bufferLength;i++){barHeight=dataArray[i]/2.8;canvasCtx.fillStyle='rgba(255,255,255,'+(barHeight/80+0.2)+')';canvasCtx.fillRect(x,visualizer.height-barHeight,barWidth,barHeight);x+=barWidth+gap}}
+    startBtn.addEventListener('click',()=>{introScreen.classList.add('hidden');container.classList.add('active');audio.volume=0.5;initAudio();audio.play().then(()=>{playBtn.innerHTML="⏸"}).catch(()=>{});boxes.forEach((b,i)=>{setTimeout(()=>{b.classList.add('reveal')},i*120)});setTimeout(()=>{profileCard.classList.add('show')},1800)});
+    function togglePlay(){if(audio.paused){if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();audio.play();playBtn.innerHTML="⏸"}else{audio.pause();playBtn.innerHTML="▶"}}
+    audio.addEventListener("timeupdate",()=>{if(audio.duration){progressBar.style.width=(audio.currentTime/audio.duration)*100+"%"}});
+    function switchTab(t,b){document.querySelectorAll(".tab-btn").forEach(e=>e.classList.remove("active"));document.querySelectorAll(".content-section").forEach(e=>e.classList.remove("active"));b.classList.add("active");document.getElementById(t).classList.add("active");const st=document.getElementById("sideTitle");if(t==='profile'){st.classList.remove("visible")}else{st.classList.add("visible")}}
+    function toggleCard(s){if(s){profileCard.classList.add('show');reopenBtn.classList.remove('active')}else{profileCard.classList.remove('show');setTimeout(()=>{reopenBtn.classList.add('active')},300)}}
+    reopenBtn.addEventListener('click',()=>{toggleCard(true)});
+    </script>
+  </body>
 </html>
